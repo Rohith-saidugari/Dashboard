@@ -18,7 +18,7 @@ public class RecruiterController {
 
     @PostMapping
     public Recruiter addRecruiter(@Valid @RequestBody Recruiter recruiter){
-       return recruiterService.addOrUpdateRecruiter(recruiter);
+        return recruiterService.addOrUpdateRecruiter(recruiter);
     }
     @PutMapping
     public Recruiter updateRecruiter(@Valid @RequestBody Recruiter recruiter){

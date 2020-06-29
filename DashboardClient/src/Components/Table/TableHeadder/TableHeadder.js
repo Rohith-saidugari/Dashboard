@@ -1,6 +1,9 @@
 import React from 'react'
 import './TableHeadder.css'
+
 const tableHeadder = (props) =>{
+
+
     return(
         <div className="table-title">
             <div className="row">
@@ -8,9 +11,9 @@ const tableHeadder = (props) =>{
                     <h2>{props.title} Management</h2>
                 </div>
                 <div className="col-sm-7">
-                    <a href="/" className="btn btn-secondary"><i className="material-icons">&#xE147;</i>
+                    <a className="btn btn-secondary"><i className="material-icons">&#xE147;</i>
                         <span>Add New {props.title}</span></a>
-                    <a href="/" className="btn btn-secondary"><i className="material-icons">&#xE24D;</i>
+                    <a  className="btn btn-secondary" onClick={props.dataExportHandler}><i className="material-icons">&#xE24D;</i>
                         <span>Export to Excel</span></a>
                 </div>
             </div>

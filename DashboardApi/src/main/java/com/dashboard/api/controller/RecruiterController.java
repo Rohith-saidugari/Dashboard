@@ -3,6 +3,8 @@ package com.dashboard.api.controller;
 import com.dashboard.api.model.Recruiter;
 import com.dashboard.api.service.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/v1/recruiter")
 public class RecruiterController {
 
@@ -26,10 +29,8 @@ public class RecruiterController {
     }
 
     @GetMapping
-    public List<Recruiter> getAllRecruiters(@RequestParam(defaultValue = "0") Integer pageNo,
-                                            @RequestParam(defaultValue = "10") Integer pageSize,
-                                            @RequestParam(defaultValue = "id") String sortBy){
-        return recruiterService.getAllRecruiters(pageNo,pageSize,sortBy);
+    public List<Recruiter> getAllRecruiters(){
+        return recruiterService.getAllRecruiters();
     }
 
 

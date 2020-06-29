@@ -25,13 +25,7 @@ public class RecruiterService {
     }
 
 
-    public List<Recruiter> getAllRecruiters(Integer pageNo, Integer pageSize, String sortBy) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
-        Page<Recruiter> pagedResult = recruiterRepository.findAll(paging);
-        if (pagedResult.hasContent()) {
-            return pagedResult.getContent();
-        } else {
-            return new ArrayList<>();
-        }
+    public List<Recruiter> getAllRecruiters() {
+        return  recruiterRepository.findAll();
     }
 }

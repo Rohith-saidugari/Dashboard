@@ -12,6 +12,7 @@ class App extends Component {
     componentDidMount() {
         ApiService.fetchRecruiters().then(
             response =>{
+                console.log(response.data)
                 this.setState({recruiters :response.data})
             }
         );

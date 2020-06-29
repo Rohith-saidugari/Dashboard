@@ -1,7 +1,20 @@
 import React , { Component }from 'react'
 import './Table.css'
 import TableHeadder from './TableHeadder/TableHeadder'
+
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+//import Pagination from './Pagination/Pagination'
 class Table extends  Component{
+
+    //Data Handler to Export data to Excel Format
+    dataExportHandler = () => {
+        const ws = XLSX.utils.json_to_sheet(this.props.recruiters);
+        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'});
+        FileSaver.saveAs(data, 'Recruiters' + '.xlsx');
+    }
 
     getKeys = () =>{
         return Object.keys(this.props.recruiters[0])
@@ -20,7 +33,10 @@ class Table extends  Component{
         return items.map((row, index)=>{
             return <tr key={index}><RenderRow key={index} data={row} keys={keys}/></tr>
         })
-    }
+    };
+
+
+
 
 
     render() {
@@ -29,7 +45,7 @@ class Table extends  Component{
             <div className="container-xl">
                 <div className="table-responsive">
                     <div className="table-wrapper">
-                        <TableHeadder title="Recruiter"/>
+                        <TableHeadder title="Recruiter" dataExportHandler={this.dataExportHandler}/>
                         <table className="table table-striped table-hover">
                             <thead>
                             <tr>{this.getHeadder()}</tr>
@@ -38,18 +54,9 @@ class Table extends  Component{
                              {this.getRowsData()}
                             </tbody>
                         </table>
-                        <div className="clearfix">
-                            <div className="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                            <ul className="pagination">
-                                <li className="page-item disabled"><a href="/">Previous</a></li>
-                                <li className="page-item"><a href="/" className="page-link">1</a></li>
-                                <li className="page-item"><a href="/" className="page-link">2</a></li>
-                                <li className="page-item active"><a href="/" className="page-link">3</a></li>
-                                <li className="page-item"><a href="/" className="page-link">4</a></li>
-                                <li className="page-item"><a href="/" className="page-link">5</a></li>
-                                <li className="page-item"><a href="/" className="page-link">Next</a></li>
-                            </ul>
-                        </div>
+                        {/*
+                        <Pagination/>
+                        */}
                     </div>
                 </div>
             </div>

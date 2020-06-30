@@ -1,38 +1,24 @@
 import React, { Component } from 'react';
-import './App.css';
-import Table from './Components/Table/Table'
-import ApiService from "./ApiService/ApiService";
+import NavBarPage from './components/NavbarPage/NavbarPage'
+import FooterPage from './components/FooterPage/FooterPage'
+import Table from './components/Table/Table'
 class App extends Component {
-
     state = {
-        recruiters:null
+        active:"Recruiters"
     }
 
-
-    componentDidMount() {
-        ApiService.fetchRecruiters().then(
-            response =>{
-                console.log(response.data)
-                this.setState({recruiters :response.data})
-            }
-        );
+    navigationChangeHandler= (event)=>{
+        this.setState({active:event.target.innerHTML})
     }
-
-
-    render() {
-        let tableData = <h1>Loading Table Data</h1>
-        if(this.state.recruiters)
-            tableData = <Table recruiters = {this.state.recruiters}/>;
-        return (
-            <div>
-                <div>Navbar</div>
-                <div>
-                    {tableData}
-                </div>
-                <div>Footer</div>
-            </div>
-        );
-    }
+  render() {
+    return (
+        <div className="App ">
+            <NavBarPage clicked={this.navigationChangeHandler} active={this.state.active}/>
+            <Table title ={this.state.active}/>
+            <FooterPage/>
+        </div>
+    );
+  }
 }
 
 export default App;
